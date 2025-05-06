@@ -10,17 +10,7 @@
     if ( empty( $email ) || empty( $password ) ) {
         echo "All fields are required";
     } else {
-        // 5. get the user data by email
-        // 5.1 SQL 
-        $sql = "SELECT * FROM users WHERE email = :email";
-        // 5.2 prepare
-        $query = $database->prepare( $sql );
-        // 5.3 execute
-        $query->execute([
-            "email" => $email
-        ]);
-        // 5.4 fetch
-        $user = $query->fetch(); // return the first row of the list
+        $user = getUserByEmail( $email );
 
         // check if the user exists
         if ( $user ) {

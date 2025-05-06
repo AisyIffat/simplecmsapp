@@ -52,8 +52,13 @@
       </div>
 
       <div class="mt-4 d-flex justify-content-center gap-3">
+      <?php if ( isset( $_SESSION["user"] ) ) : ?>
+        <a href="/logout" class="btn btn-link btn-sm">Log out</a>
+        <a href="/dashboard" class="btn btn-link btn-sm">Dashboard</a>
+      <?php else : ?>
         <a href="/login" class="btn btn-link btn-sm">Login</a>
         <a href="/signup" class="btn btn-link btn-sm">Sign Up</a>
+      <?php endif; ?>
       </div>
     </div>
 

@@ -20,16 +20,8 @@
     } else if ( $password !== $confirm_password ) {
         echo "Your password is not match";
     } else {
-        // Check Exist
-        // SQL command
-        $sql = "SELECT * FROM users WHERE email = :email";
-        // prepare
-        $query = $database->prepare( $sql );
-        // execute
-        $query->execute([
-            "email" => $email,
-        ]);
-        $user = $query->fetch();
+        $user = getUserByEmail( $email );
+
         if ($user) {
             echo "This account is already been signup";
         } else {
