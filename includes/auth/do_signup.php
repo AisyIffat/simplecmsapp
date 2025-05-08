@@ -16,14 +16,23 @@
         empty( $password ) || 
         empty( $confirm_password ) 
     ) {
-        echo "All the fields are required";
+        $_SESSION["error"] = "All fields are required";
+        // redirect back to login page
+        header("Location: /signup");
+        exit;
     } else if ( $password !== $confirm_password ) {
-        echo "Your password is not match";
+        $_SESSION["error"] = "Your password is not match";
+        // redirect back to login page
+        header("Location: /signup");
+        exit;
     } else {
         $user = getUserByEmail( $email );
 
         if ($user) {
-            echo "This account is already been signup";
+            $_SESSION["error"] = "This account is already been signup";
+            // redirect back to login page
+            header("Location: /signup");
+            exit;
         } else {
             // 5. create a user account
             // 5.1 SQL command
@@ -37,7 +46,10 @@
                 "password" => password_hash( $password, PASSWORD_DEFAULT )
             ]);
 
-            // 6. redirect to e1-todolistapp.php
+            // 6. set success message
+            $_SESSION["success"] = "Account created successfully. Please login with your email and password";
+
+            // 7. redirect to login.php
             header("Location: /login");
             exit;
         }

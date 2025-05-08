@@ -1,11 +1,13 @@
 <?php require "parts/header.php"; ?>
     <div class="container my-5 mx-auto" style="max-width: 500px;">
-      <h1 class="h1 mb-4 text-center">Login</h1>
+      <h1 class="h1 mb-4 text-center">Login To Your Account</h1>
 
       <div class="card p-4">
+      <?php require "parts/message_success.php"; ?>
+      <?php require ("parts/message_error.php"); ?>
         <form method="POST" action="/auth/do_login">
           <div class="mb-2">
-            <label for="email" class="visually-hidden">Email</label>
+            <label for="email" class="form-label">Email</label>
             <input
               name="email"
               type="text"
@@ -15,7 +17,7 @@
             />
           </div>
           <div class="mb-2">
-            <label for="password" class="visually-hidden">Password</label>
+            <label for="password" class="form-label">Password</label>
             <input
               name="password"
               type="password"

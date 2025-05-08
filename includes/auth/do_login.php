@@ -8,7 +8,10 @@
 
     // 4. check for error (make sure all the fields are filled)
     if ( empty( $email ) || empty( $password ) ) {
-        echo "All fields are required";
+        $_SESSION["error"] = "All fields are required";
+        // redirect back to login page
+        header("Location: /login");
+        exit;
     } else {
         $user = getUserByEmail( $email );
 
@@ -19,13 +22,23 @@
                 // 7. store the user data in the session storage to login the user
                 $_SESSION["user"] = $user;
 
-                // 8. redirect
+                // 8. set success message
+                $_SESSION["success"] = "Welcome back, " . $user["name"] . "!";
+
+                // 9. redirect
                 header("Location: /dashboard");
                 exit;
             } else {
-                echo "The password provided is incorrect";
+                $_SESSION["error"] = "The password provided is incorrect";
+                // redirect back to login page
+                header("Location: /login");
+                exit;
             }
         } else {
-            echo "The email provided does not exist";
+            $_SESSION["error"] = "The email provided does not exist";
+
+            // redirect back to login page
+            header("Location: /login");
+            exit;
         }
     }
