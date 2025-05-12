@@ -27,8 +27,8 @@ if (empty($name) || empty($email) || empty($password) || empty($confirm_password
     header("Location: /auth/manage-users-add");
     exit;
 } else {
-    $user = getUserByEmail ($email);
-    if ($user) {
+    $users = getusersByEmail ($email);
+    if ($users) {
         // TODO: email provided does not exist in the system
         $_SESSION["error"] = "Email provided does not exist in the system";
         // Redirect
@@ -37,10 +37,10 @@ if (empty($name) || empty($email) || empty($password) || empty($confirm_password
     } 
 }
 
-// 4. create the user account. You need to assign the role to the user
+// 4. create the users account. You need to assign the role to the users
 /*
     role options:
-    - user
+    - users
     - editor
     - admin
 
@@ -53,7 +53,7 @@ if (empty($name) || empty($email) || empty($password) || empty($confirm_password
     $statement->execute([ 
         "email" => $email,
         "name" => $name,
-        "password" => $password,
+        "password" => password_hash( $password, PASSWORD_DEFAULT ),
         "role" => $role,
     ]);
     

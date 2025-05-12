@@ -26,15 +26,15 @@
         header("Location: /signup");
         exit;
     } else {
-        $user = getUserByEmail( $email );
+        $users = getusersByEmail( $email );
 
-        if ($user) {
+        if ($users) {
             $_SESSION["error"] = "This account is already been signup";
             // redirect back to login page
             header("Location: /signup");
             exit;
         } else {
-            // 5. create a user account
+            // 5. create a users account
             // 5.1 SQL command
             $sql = "INSERT INTO users (`name`, `email`, `password`) VALUES (:name, :email, :password)";
             // 5.2 prepare

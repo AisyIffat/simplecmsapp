@@ -1,9 +1,9 @@
 <?php
 
-    // for log out user
+    // for log out users
 
-    // remove the user session 
-    unset( $_SESSION["user"] );
+    // remove the users session 
+    unset( $_SESSION["users"] );
 
     // redirect back to index.php
     header("Location: /");

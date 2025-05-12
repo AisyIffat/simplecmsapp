@@ -5,7 +5,7 @@
     // require the functions file
     require "includes/functions.php";
 
-    // figure out what path the user is visiting
+    // figure out what path the users is visiting
     $path = $_SERVER["REQUEST_URI"];
     // remove all the query string form the URL
     $path = parse_url( $path, PHP_URL_PATH );
@@ -75,19 +75,39 @@
         require "includes/task/manage-posts-edit.php";
         break;
 
-      // setup the action route for add user
-      case '/user/add':
-        require "includes/user/add.php";
+      // setup the action route for add users
+      case '/users/add':
+        require "includes/users/add.php";
         break;
 
-      // setup the action for update user
-      case '/user/update':
-        require "includes/user/update.php";
+      // setup the action for update users
+      case '/users/update':
+        require "includes/users/update.php";
         break;
 
-      // setup the action for delete user
-      case '/user/delete':
-        require "includes/user/delete.php";
+      // setup the action for changepwd users
+      case '/users/changepwd':
+        require "includes/users/changepwd.php";
+        break;
+
+      // setup the action for delete users
+      case '/users/delete':
+        require "includes/users/delete.php";
+        break;
+
+      // setup the action route for add post
+      case '/post/add-post':
+        require "includes/post/add-post.php";
+        break;
+
+      // setup the action route for edit post
+      case '/post/edit-post':
+        require "includes/post/edit-post.php";
+        break;
+
+      // setup the action route for delete post
+      case '/post/delete-post':
+        require "includes/post/delete-post.php";
         break;
 
       // home

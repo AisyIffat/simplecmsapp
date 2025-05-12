@@ -1,10 +1,18 @@
+<?php
+  // check if the users is not an admin
+  if ( !isAdmin() ) {
+    header("Location: /dashboard");
+    exit;
+  }
+?>
+
 <?php require "parts/header.php"; ?>
     <div class="container mx-auto my-5" style="max-width: 700px;">
       <div class="d-flex justify-content-between align-items-center mb-2">
-        <h1 class="h1">Add New User</h1>
+        <h1 class="h1">Add New users</h1>
       </div>
       <div class="card mb-2 p-4">
-        <form method="POST" action="/user/add">
+        <form method="POST" action="/users/add">
         <?php require ("parts/message_success.php"); ?>
         <?php require "parts/message_error.php"; ?>  
           <div class="mb-3">
@@ -42,7 +50,7 @@
             <label for="role" class="form-label">Role</label>
             <select class="form-control" id="role" name="role">
               <option value="">Select an option</option>
-              <option value="user">User</option>
+              <option value="users">users</option>
               <option value="editor">Editor</option>
               <option value="admin">Admin</option>
             </select>
@@ -54,7 +62,7 @@
       </div>
       <div class="text-center">
         <a href="/auth/manage-users" class="btn btn-link btn-sm"
-          ><i class="bi bi-arrow-left"></i> Back to Users</a
+          ><i class="bi bi-arrow-left"></i> Back to users</a
         >
       </div>
     </div>

@@ -1,13 +1,22 @@
+<?php
+  // check if the users is not an admin
+  if ( !isusersLoggedIn() ) {
+    header("Location: /");
+    exit;
+  }
+?>
+
 <?php require "parts/header.php"; ?>
     <div class="container mx-auto my-5" style="max-width: 700px;">
       <div class="d-flex justify-content-between align-items-center mb-2">
         <h1 class="h1">Add New Post</h1>
       </div>
       <div class="card mb-2 p-4">
-        <form>
+        <form method="POST" action="/post/add-post">
+        <?php require "parts/message_error.php"; ?> 
           <div class="mb-3">
             <label for="post-title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="post-title" />
+            <input type="text" class="form-control" id="post-title" name="title" />
           </div>
           <div class="mb-3">
             <label for="post-content" class="form-label">Content</label>
@@ -15,6 +24,7 @@
               class="form-control"
               id="post-content"
               rows="10"
+              name="content"
             ></textarea>
           </div>
           <div class="text-end">

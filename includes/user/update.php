@@ -11,11 +11,11 @@
     // 3. check error
     if ( empty( $id ) || empty( $name ) || empty( $role ) ) {
         $_SESSION["error"] = "Please fill up all the fields";
-        header("Location: /auth/manage-user-edit?id=" . $id );
+        header("Location: /auth/manage-users-edit?id=" . $id );
         exit;
     }
 
-    // 4. update user
+    // 4. update users
     $sql = "UPDATE users set name = :name, role = :role WHERE id = :id";
     $query = $database->prepare( $sql );
     $query->execute([
@@ -25,6 +25,6 @@
     ]);
 
     // 5. redirect
-    $_SESSION["success"] = "User has been updated";
+    $_SESSION["success"] = "users has been updated";
     header("Location: /auth/manage-users");
     exit;

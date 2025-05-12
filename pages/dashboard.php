@@ -1,3 +1,11 @@
+<?php
+  // check if the users is not an admin
+  if ( !isusersLoggedIn() ) {
+    header("Location: /");
+    exit;
+  }
+?>
+
 <?php require "parts/header.php"; ?>
     <div class="container mx-auto my-5" style="max-width: 800px;">
       <h1 class="h1 mb-4 text-center">Dashboard</h1>
@@ -20,23 +28,26 @@
             </div>
           </div>
         </div>
-        <div class="col">
-          <div class="card mb-2">
-            <div class="card-body">
-              <h5 class="card-title text-center">
-                <div class="mb-1">
-                  <i class="bi bi-people" style="font-size: 3rem;"></i>
+        <!-- only show this to admin -->
+        <?php if ( isAdmin() ) : ?>
+          <div class="col">
+            <div class="card mb-2">
+              <div class="card-body">
+                <h5 class="card-title text-center">
+                  <div class="mb-1">
+                    <i class="bi bi-people" style="font-size: 3rem;"></i>
+                  </div>
+                  Manage users
+                </h5>
+                <div class="text-center mt-3">
+                  <a href="/auth/manage-users" class="btn btn-primary btn-sm"
+                    >Access</a
+                  >
                 </div>
-                Manage Users
-              </h5>
-              <div class="text-center mt-3">
-                <a href="/auth/manage-users" class="btn btn-primary btn-sm"
-                  >Access</a
-                >
               </div>
             </div>
           </div>
-        </div>
+        <?php endif; ?>
       </div>
       <div class="mt-4 text-center">
         <a href="/" class="btn btn-link btn-sm"
