@@ -60,12 +60,22 @@ $loggedInUserRole = $_SESSION["users"]["role"];
             </td>
             <td class="text-end">
               <div class="buttons d-flex flex-end">
+                <?php if ($post['status'] === 'publish') : ?>
                 <a
-                  href="/post"
+                  href="/post?id=<?php echo $post['id']; ?>"
                   target="_blank"
                   class="btn btn-primary btn-sm me-2"
                   ><i class="bi bi-eye"></i
                 ></a>
+                <?php endif; ?>
+                <?php if ($post['status'] === 'pending') : ?>
+                <a
+                  href="/post?id=<?php echo $post['id']; ?>"
+                  target="_blank"
+                  class="btn btn-primary btn-sm me-2 disabled"
+                  ><i class="bi bi-eye"></i
+                ></a>
+                <?php endif; ?>
                 <a
                   href="/task/manage-posts-edit?id=<?php echo $post['id']; ?>"
                   class="btn btn-secondary btn-sm me-2"

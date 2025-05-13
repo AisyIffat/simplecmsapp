@@ -16,6 +16,7 @@
       <h1 class="h1 mb-4 text-center">My Blog</h1>
       <p><?php echo ( isusersLoggedIn() ? "Welcome back, " . $_SESSION["users"]["name"] : ""); ?></p>
       <?php foreach ($posts as $index => $post) : ?>
+      <?php if ($post['status'] === 'publish') : ?>
         <div class="card mb-2">
         <div class="card-body">
           <h5 class="card-title"><?php echo $post['title']; ?></h5>
@@ -25,6 +26,7 @@
           </div>
         </div>
       </div>
+      <?php endif; ?>
       <?php endforeach; ?>
 
       <div class="mt-4 d-flex justify-content-center gap-3">
