@@ -13,17 +13,17 @@
         header("Location: /login");
         exit;
     } else {
-        $users = getusersByEmail( $email );
+        $user = getusersByEmail( $email );
 
         // check if the users exists
-        if ( $users ) {
+        if ( $user ) {
             // 6. check if the password is correct or not
-            if ( password_verify( $password, $users["password"] ) ) {
+            if ( password_verify( $password, $user["password"] ) ) {
                 // 7. store the users data in the session storage to login the users
-                $_SESSION["users"] = $users;
+                $_SESSION["user"] = $user;
 
                 // 8. set success message
-                $_SESSION["success"] = "Welcome back, " . $users["name"] . "!";
+                $_SESSION["success"] = "Welcome back, " . $user["name"] . "!";
 
                 // 9. redirect
                 header("Location: /dashboard");

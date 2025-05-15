@@ -40,49 +40,49 @@
             </tr>
           </thead>
           <tbody>
-          <?php foreach ($users as $index => $users) : ?>
+          <?php foreach ($users as $index => $user) : ?>
             <tr>
-              <th scope="row"><?php echo $users['id']; ?></th>
-              <td><?php echo $users['name']; ?></td>
-              <td><?php echo $users['email']; ?></td>
+              <th scope="row"><?php echo $user['id']; ?></th>
+              <td><?php echo $user['name']; ?></td>
+              <td><?php echo $user['email']; ?></td>
               <td>
-                <?php if ( $users['role'] === 'admin' ) : ?>
-                  <span class="badge bg-primary"><?php echo $users['role']; ?></span>
+                <?php if ( $user['role'] === 'admin' ) : ?>
+                  <span class="badge bg-primary"><?php echo $user['role']; ?></span>
                 <?php endif; ?> 
-                <?php if ( $users['role'] === 'editor' ) : ?>
-                  <span class="badge bg-info"><?php echo $users['role']; ?></span>
+                <?php if ( $user['role'] === 'editor' ) : ?>
+                  <span class="badge bg-info"><?php echo $user['role']; ?></span>
                 <?php endif; ?>
-                <?php if ( $users['role'] === 'users' ) : ?>
-                  <span class="badge bg-success"><?php echo $users['role']; ?></span>
+                <?php if ( $user['role'] === 'user' ) : ?>
+                  <span class="badge bg-success"><?php echo $user['role']; ?></span>
                 <?php endif; ?>
               </td>
               <td class="text-end">
                 <div class="buttons d-flex">
                   <a
-                    href="/auth/manage-users-edit?id=<?php echo $users['id']; ?>"
+                    href="/auth/manage-users-edit?id=<?php echo $user['id']; ?>"
                     class="btn btn-success btn-sm me-2"
                     ><i class="bi bi-pencil"></i
                   ></a>
                   <a
-                    href="/auth/manage-users-changepwd?id=<?php echo $users['id']; ?>"
+                    href="/auth/manage-users-changepwd?id=<?php echo $user['id']; ?>"
                     class="btn btn-warning btn-sm me-2"
                     ><i class="bi bi-key"></i
                   ></a>
                   <!-- Button to trigger delete confirmation modal -->
-                  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#usersDeleteModal-<?php echo $users['id']; ?>">
+                  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#usersDeleteModal-<?php echo $user['id']; ?>">
                      <i class="bi bi-trash"></i>
                   </button>
 
                   <!-- Modal -->
-                  <div class="modal fade" id="usersDeleteModal-<?php echo $users['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal fade" id="usersDeleteModal-<?php echo $user['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure you want to delete this users?</h1>
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure you want to delete this user?</h1>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body text-start">
-                          <p>You're currently trying to delete this users: <?php echo $users['email']; ?></p>
+                          <p>You're currently trying to delete this user: <?php echo $user['email']; ?></p>
                           <p>This action cannot be reversed.</p>
                         </div>
                         <div class="modal-footer">

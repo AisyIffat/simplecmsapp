@@ -25,6 +25,6 @@
     ]);
 
     // 5. redirect
-    $_SESSION["success"] = "users has been updated";
+    $_SESSION["success"] = "User has been updated";
     header("Location: /auth/manage-users");
     exit;

@@ -22,7 +22,7 @@
     "id" => $id
   ]);
   // fetch
-  $users = $query->fetch();
+  $user = $query->fetch();
 
 ?>
 <?php require "parts/header.php"; ?>
@@ -36,11 +36,11 @@
             <div class="row">
               <div class="col">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" value="<?php echo $users["name"]; ?>" />
+                <input type="text" class="form-control" id="name" name="name" value="<?php echo $user["name"]; ?>" />
               </div>
               <div class="col">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" value="<?php echo $users["email"]; ?>" disabled />
+                <input type="email" class="form-control" id="email" name="email" value="<?php echo $user["email"]; ?>" disabled />
               </div>
             </div>
           </div>
@@ -48,13 +48,13 @@
             <label for="role" class="form-label">Role</label>
             <select class="form-control" id="role" name="role">
               <option value="">Select an option</option>
-              <option value="users" <?php echo ( $users["role"] === "users" ? "selected" : "" ); ?>>users</option>
-              <option value="editor" <?php echo ( $users["role"] === "editor" ? "selected" : "" ); ?>>Editor</option>
-              <option value="admin" <?php echo ( $users["role"] === "admin" ? "selected" : "" ); ?>>Admin</option>
+              <option value="user" <?php echo ( $user["role"] === "user" ? "selected" : "" ); ?>>User</option>
+              <option value="editor" <?php echo ( $user["role"] === "editor" ? "selected" : "" ); ?>>Editor</option>
+              <option value="admin" <?php echo ( $user["role"] === "admin" ? "selected" : "" ); ?>>Admin</option>
             </select>
           </div>
           <div class="d-grid">
-            <input type="hidden" name="id" value="<?php echo $users["id"]; ?>" />
+            <input type="hidden" name="id" value="<?php echo $user["id"]; ?>" />
             <button type="submit" class="btn btn-primary">Update</button>
           </div>
         </form>

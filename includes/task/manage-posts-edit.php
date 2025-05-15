@@ -30,7 +30,7 @@
       </div>
       <?php require "parts/message_error.php"; ?>
       <div class="card mb-2 p-4">
-        <form method="POST" action="/post/edit-post">
+        <form method="POST" action="/post/edit-post" enctype="multipart/form-data">
           <div class="mb-3">
             <label for="post-title" class="form-label">Title</label>
             <input
@@ -52,6 +52,13 @@
               <option value="pending" <?php echo ( $post["status"] === "pending" ? "selected" : "" ); ?>>Pending for Review</option>
               <option value="publish" <?php echo ( $post["status"] === "publish" ? "selected" : "" ); ?>>Publish</option>
             </select>
+          </div>
+          <div class="mb-3">
+            <label class ="form-label">Image</label>
+            <div>
+              <img src="/<?= $post["image"]; ?>" class="img-fluid" />
+            </div>
+            <input type="file" name="image" accept="image/*" />
           </div>
           <div class="text-end">
             <input type="hidden" name="id" value="<?php echo $post["id"]; ?>" />

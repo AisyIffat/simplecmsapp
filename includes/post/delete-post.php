@@ -15,6 +15,8 @@
         "id" => $users_id
     ]);
 
+    $_SESSION["success"] = "Post has been deleted";
+
     header("Location: /task/manage-posts");
     exit;
 ?>

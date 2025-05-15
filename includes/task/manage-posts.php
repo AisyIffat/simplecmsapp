@@ -9,47 +9,74 @@
 <?php
   // 1. connect to database
   $database = connectToDB();
-  // 2. get all the users
-    // 2.1
-  $sql = "SELECT * FROM posts";
-  // 2.2
-  $query = $database->query( $sql );
-  // 2.3
-  $query->execute();
-  // 2.4
-  $posts = $query->fetchAll();
 
-$loggedInUserId = $_SESSION["users"]["id"];
-$loggedInUserRole = $_SESSION["users"]["role"];
+  $user_id = $_SESSION["user"]["id"]; 
+  /*
+    use ORDER BY to sort by column
+    use ASC to sort by ascending order (lowest value first)
+    use DESC to sort by descending order (highest value first)
+  */
+
+  if ( isEditor() ) {
+    $sql = "SELECT posts.*, users.name 
+            FROM posts 
+            JOIN users 
+            ON posts.user_id = users.id 
+            ORDER BY posts.id DESC";
+    $query = $database->query( $sql );
+    $query->execute();
+  } else {
+    // version 1 (recommended)
+    $sql = "SELECT posts.*, users.name 
+            FROM posts 
+            JOIN users 
+            ON posts.user_id = users.id
+            WHERE posts.user_id = :user_id 
+            ORDER BY posts.id DESC";
+    $query = $database->prepare( $sql );
+    $query->execute([
+      "user_id" => $user_id
+    ]);
+
+    // version 2 (not recommended)
+    // $sql = "SELECT * FROM posts WHERE user_id = " . $user_id . " ORDER BY id DESC";
+    // $query = $database->query( $sql );
+    // $query->execute([
+    //   "user_id" => $user_id
+    // ]);
+  }
+
+  $posts = $query->fetchAll();
 ?>
 
 <?php require "parts/header.php"; ?>
     <div class="container mx-auto my-5" style="max-width: 700px;">
       <div class="d-flex justify-content-between align-items-center mb-2">
         <h1 class="h1">Manage Posts</h1>
-        <?php require ("parts/message_success.php"); ?>
         <div class="text-end">
           <a href="/task/manage-posts-add" class="btn btn-primary btn-sm"
             >Add New Post</a
           >
         </div>
       </div>
+      <?php require ("parts/message_success.php"); ?>
       <div class="card mb-2 p-4">
         <table class="table">
           <thead>
             <tr>
               <th scope="col">ID</th>
               <th scope="col" style="width: 40%;">Title</th>
+              <th scope="col">Author</th>
               <th scope="col">Status</th>
               <th scope="col" class="text-start">Actions</th>
             </tr>
           </thead>
           <tbody>
           <?php foreach ($posts as $index => $post) : ?>
-          <?php if ( $loggedInUserRole == 'admin' || $loggedInUserRole == 'editor' || $post["user_id"] == $loggedInUserId ): ?>
           <tr>
             <th scope="row"><?php echo $post['id']; ?></th>
             <td><?php echo $post['title']; ?></td>
+            <td><?php echo $post['name']; ?></td>
             <td>
               <?php if ( $post['status'] === 'pending' ) : ?>
                 <span class="badge bg-warning">Pending Review</span>
@@ -117,7 +144,6 @@ $loggedInUserRole = $_SESSION["users"]["role"];
               </div>
             </td>
           </tr>
-          <?php endif; ?>
           <?php endforeach; ?>
           </tbody>
         </table>

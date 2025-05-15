@@ -48,7 +48,7 @@ function getusersByEmail( $email ) {
     if users is not logged in, return false
 */
 function isusersLoggedIn() {
-    return isset( $_SESSION["users"] );
+    return isset( $_SESSION["user"] );
 }
 
 /*
@@ -56,8 +56,8 @@ function isusersLoggedIn() {
 */
 function isAdmin() {
     // check if users session is set or not
-    if ( isset( $_SESSION["users"] ) ) {
-        if ( $_SESSION["users"]["role"] === 'admin') {
+    if ( isset( $_SESSION["user"] ) ) {
+        if ( $_SESSION["user"]["role"] === 'admin') {
             return true;
         }
     }
@@ -69,5 +69,5 @@ function isAdmin() {
     check if current users is an editor or admin
 */
 function isEditor() {
-    return isset( $_SESSION["users"] ) && ( $_SESSION["users"]["role"] === 'admin' || $_SESSION["users"]["role"] === 'editor') ? true : false;
+    return isset( $_SESSION["user"] ) && ( $_SESSION["user"]["role"] === 'admin' || $_SESSION["user"]["role"] === 'editor') ? true : false;
 }

@@ -7,7 +7,8 @@ $database = connectToDB();
 
 $title = isset($_POST["title"]) ? $_POST["title"] : "";
 $content = isset($_POST["content"]) ? $_POST["content"] : "";
-$users_id = isset($_SESSION["users"]["id"]) ? $_SESSION["users"]["id"]: "";
+$user_id = isset($_SESSION["user"]["id"]) ? $_SESSION["user"]["id"]: "";
+$image = $_FILES["image"];
 
 /*
     3. error checking
@@ -20,15 +21,28 @@ if (empty($title) || empty($content)) {
     exit;
 } 
 
+// trigger the file upload
+// make sure $image is not empty
+if ( !empty( $image ) ) {
+    // where is the upload folder
+    $target_folder = "uploads/";
+    // add the image name to the upload folder path
+    // YYYY-MM-DD-HHmmssvvv
+    $target_path = $target_folder . date( "YmdHisv" ) . "_" . basename( $image["name"] );
+    // move the file to the uploads folder
+    move_uploaded_file( $image["tmp_name"] , $target_path );
+}
+
     //step 1 recipe
-    $sql = "INSERT INTO posts (`title`, `content`, `users_id`) VALUES (:title, :content, :users_id)";
+    $sql = "INSERT INTO posts (`title`, `content`, `image`, `user_id`) VALUES (:title, :content, :image, :user_id)";
     //step 2 prepare
     $query = $database->prepare($sql);
     //step 3 let them cook
     $query->execute([ 
         "title" => $title,
         "content" => $content,
-        "users_id" => $users_id,
+        "image" => isset( $target_path ) ? $target_path : "",
+        "user_id" => $_SESSION["user"]["id"]
     ]);
     
     //step 4 display success message
